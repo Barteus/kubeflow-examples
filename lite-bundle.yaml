@@ -1,0 +1,327 @@
+bundle: kubernetes
+applications:
+  admission-webhook:
+    charm: admission-webhook
+    channel: stable
+    revision: 12
+    series: kubernetes
+    resources:
+      oci-image: 13
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  argo-controller:
+    charm: argo-controller
+    channel: stable
+    revision: 56
+    series: kubernetes
+    resources:
+      oci-image: 240
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  dex-auth:
+    charm: dex-auth
+    channel: 2.28/stable
+    revision: 78
+    series: kubernetes
+    resources:
+      oci-image: 183
+    scale: 1
+    options:
+      public-url: http://10.64.140.43.nip.io/
+      static-password: admin123
+      static-username: admin
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+    trust: true
+  envoy:
+    charm: envoy
+    channel: stable
+    revision: 6
+    series: kubernetes
+    resources:
+      oci-image: 6
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  istio-ingressgateway:
+    charm: istio-gateway
+    channel: 1.5/stable
+    revision: 40
+    series: kubernetes
+    resources:
+      oci-image: 20
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+    trust: true
+  istio-pilot:
+    charm: istio-pilot
+    channel: 1.5/stable
+    revision: 61
+    series: kubernetes
+    resources:
+      oci-image: 43
+    scale: 1
+    options:
+      default-gateway: kubeflow-gateway
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  jupyter-controller:
+    charm: jupyter-controller
+    channel: stable
+    revision: 61
+    series: kubernetes
+    resources:
+      oci-image: 236
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  jupyter-ui:
+    charm: jupyter-ui
+    channel: stable
+    revision: 21
+    series: kubernetes
+    resources:
+      oci-image: 23
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-api:
+    charm: kfp-api
+    channel: stable
+    revision: 33
+    series: kubernetes
+    resources:
+      oci-image: 31
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-db:
+    charm: charmed-osm-mariadb-k8s
+    channel: stable
+    revision: 35
+    series: kubernetes
+    scale: 1
+    options:
+      database: mlpipeline
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-persistence:
+    charm: kfp-persistence
+    channel: stable
+    revision: 29
+    series: kubernetes
+    resources:
+      oci-image: 28
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-profile-controller:
+    charm: kfp-profile-controller
+    channel: stable
+    revision: 16
+    series: kubernetes
+    resources:
+      oci-image: 14
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-schedwf:
+    charm: kfp-schedwf
+    channel: stable
+    revision: 32
+    series: kubernetes
+    resources:
+      oci-image: 32
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-ui:
+    charm: kfp-ui
+    channel: stable
+    revision: 32
+    series: kubernetes
+    resources:
+      oci-image: 28
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-viewer:
+    charm: kfp-viewer
+    channel: stable
+    revision: 31
+    series: kubernetes
+    resources:
+      oci-image: 27
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kfp-viz:
+    charm: kfp-viz
+    channel: stable
+    revision: 28
+    series: kubernetes
+    resources:
+      oci-image: 26
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kubeflow-dashboard:
+    charm: kubeflow-dashboard
+    channel: stable
+    revision: 64
+    series: kubernetes
+    resources:
+      oci-image: 285
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kubeflow-profiles:
+    charm: kubeflow-profiles
+    channel: stable
+    revision: 57
+    series: kubernetes
+    resources:
+      kfam-image: 269
+      profile-image: 269
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  kubeflow-roles:
+    charm: kubeflow-roles
+    channel: stable
+    revision: 1
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+    trust: true
+  kubeflow-volumes:
+    charm: kubeflow-volumes
+    channel: stable
+    revision: 11
+    series: kubernetes
+    resources:
+      oci-image: 7
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  metacontroller-operator:
+    charm: metacontroller-operator
+    channel: stable
+    revision: 2
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+    trust: true
+  minio:
+    charm: minio
+    channel: stable
+    revision: 57
+    series: kubernetes
+    resources:
+      oci-image: 338
+    scale: 1
+    options:
+      secret-key: minio123
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  mlflow-db:
+    charm: cs:~charmed-osm/mariadb-k8s
+    channel: stable
+    revision: 35
+    series: kubernetes
+    scale: 1
+  mlflow-server:
+    charm: mlflow-server
+    channel: stable
+    revision: 32
+    resources:
+      oci-image: 18
+    scale: 2
+  mlmd:
+    charm: mlmd
+    channel: stable
+    revision: 10
+    series: kubernetes
+    resources:
+      oci-image: 10
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  oidc-gatekeeper:
+    charm: oidc-gatekeeper
+    channel: stable
+    revision: 57
+    series: kubernetes
+    resources:
+      oci-image: 189
+    scale: 1
+    options:
+      public-url: http://10.64.140.43.nip.io/
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  seldon-controller-manager:
+    charm: seldon-core
+    channel: stable
+    revision: 52
+    series: kubernetes
+    resources:
+      oci-image: 152
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+  training-operator:
+    charm: training-operator
+    channel: stable
+    revision: 6
+    resources:
+      training-operator-image: 4
+    scale: 1
+    annotations:
+      bundleURL: ch:amd64/kubeflow-lite-60
+    trust: true
+relations:
+- - argo-controller:object-storage
+  - minio:object-storage
+- - dex-auth:oidc-client
+  - oidc-gatekeeper:oidc-client
+- - istio-pilot:ingress
+  - dex-auth:ingress
+- - istio-pilot:ingress
+  - jupyter-ui:ingress
+- - istio-pilot:ingress
+  - kfp-ui:ingress
+- - istio-pilot:ingress
+  - kubeflow-dashboard:ingress
+- - istio-pilot:ingress
+  - kubeflow-volumes:ingress
+- - istio-pilot:ingress
+  - oidc-gatekeeper:ingress
+- - istio-pilot:ingress-auth
+  - oidc-gatekeeper:ingress-auth
+- - istio-pilot:istio-pilot
+  - istio-ingressgateway:istio-pilot
+- - kfp-api:mysql
+  - kfp-db:mysql
+- - kfp-api:kfp-api
+  - kfp-persistence:kfp-api
+- - kfp-api:kfp-api
+  - kfp-ui:kfp-api
+- - kfp-api:kfp-viz
+  - kfp-viz:kfp-viz
+- - kfp-api:object-storage
+  - minio:object-storage
+- - kfp-profile-controller:object-storage
+  - minio:object-storage
+- - kfp-ui:object-storage
+  - minio:object-storage
+- - kubeflow-profiles:kubeflow-profiles
+  - kubeflow-dashboard:kubeflow-profiles
+- - mlmd:grpc
+  - envoy:grpc
+- - mlflow-server:db
+  - mlflow-db:mysql
+- - mlflow-server:object-storage
+  - minio:object-storage
