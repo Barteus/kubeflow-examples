@@ -7,8 +7,6 @@ spec:
   predictors:
   - componentSpecs:
     - spec:
-        # We are setting high failureThreshold as installing conda dependencies
-        # can take long time and we want to avoid k8s killing the container prematurely
         containers:
         - name: classifier
           livenessProbe:
@@ -35,5 +33,5 @@ spec:
       modelUri: s3://mlflow/0/eb0d044587ea4c58b7b7abfb43ca8b5f/artifacts/model
       envSecretRefName: seldon-init-container-secret
       name: classifier
-    name: default
+    name: wine-super-model
     replicas: 1
