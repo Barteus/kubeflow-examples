@@ -9,6 +9,7 @@ spec:
     - spec:
         containers:
         - name: classifier
+          image: seldonio/mlflowserver:1.14.0-dev
           livenessProbe:
             initialDelaySeconds: 80
             failureThreshold: 200
