@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.1
+VERSION=0.1-dev
 REPO=bponieckiklotz/kubeflow-e2e-seldon-mlflow-deploy-step
 
 sudo docker build . -t $REPO:$VERSION

@@ -32,7 +32,7 @@ spec:
     graph:
       children: []
       implementation: MLFLOW_SERVER
-      modelUri:
+      modelUri: {{ model_uri }}
       envSecretRefName: seldon-init-container-secret
       name: classifier
     name: wine-super-model

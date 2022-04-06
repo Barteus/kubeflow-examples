@@ -5,7 +5,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin
 
-# currently empty
 COPY requirements.txt .
 RUN python3 -m pip install -r \
     requirements.txt --quiet --no-cache-dir \
@@ -14,4 +13,4 @@ RUN python3 -m pip install -r \
 ADD . /workspace
 WORKDIR /workspace
 
-ENTRYPOINT ["python", "deploy.py"]
+ENTRYPOINT ["python", "src/deploy.py"]
