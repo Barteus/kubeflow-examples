@@ -1,0 +1,16 @@
+name: Deploy model
+description: deploy model using seldon core
+
+inputs:
+- {name: model_uri, type: String, description: 'MLFlow model artifact URI'}
+
+implementation:
+  container:
+    image: bponieckiklotz/kubeflow-e2e-seldon-mlflow-deploy-step:0.1
+    command: [
+      python3,
+      # Path of the program inside the container
+      deploy.py,
+      --model_uri,
+      {inputValue: model_uri}
+    ]
