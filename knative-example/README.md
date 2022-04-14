@@ -1,4 +1,4 @@
-# Reproduce
+# Knative Eventing+Serving example
 
 1. deploy bundle using juju
 2. install knative
