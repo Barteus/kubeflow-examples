@@ -46,6 +46,7 @@ Install eventing
 kubectl apply -f crd-eventing.yaml
 ```
 
+# Data drift detection
 ## Train datadrift model
 
 Run notebook `data-drift-training.ipynb`. Take the model URI - you will need it
