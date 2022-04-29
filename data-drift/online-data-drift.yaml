@@ -14,7 +14,7 @@ spec:
         autoscaling.knative.dev/min-scale: "1"
     spec:
       containers:
-        - image: bponieckiklotz/knative-data-drift@sha256:ca7bd9193fed32b7d6b80a2ba0e513a6a1d1a8661c2868b888da5b60c96da8b6
+        - image: bponieckiklotz/knative-data-drift@sha256:fc2ba0e56088003b9a7f5cda4b967d759c0d93db80280a23420fc689907aa72f
           env:
             - name: BROKER_URL
               value: http://broker-ingress.knative-eventing.svc.cluster.local/default/wine-inference-requests

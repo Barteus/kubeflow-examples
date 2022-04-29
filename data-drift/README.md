@@ -6,6 +6,12 @@ Install microk8s
 
 ```
 sudo snap install microk8s --classic --channel=1.21/stable
+
+#change username
+sudo usermod -a -G microk8s ubuntu
+sudo chown -f -R ubuntu ~/.kube
+newgrp microk8s
+
 sudo microk8s enable dns storage ingress registry rbac metallb:10.64.140.43-10.64.140.49,192.168.0.105-192.168.0.111
 ```
 
@@ -20,6 +26,7 @@ Install kubectl
 
 ```
 sudo snap install kubectl --classic
+microk8s config > ~/.kube/config
 ```
 
 Install kn CLI
@@ -44,7 +51,7 @@ export PATH=$PATH:$HOME/.istioctl/bin
 istioctl x precheck
 ```
 
-Install istion using istioctl
+Install istio using istioctl
 
 ```
 #install
@@ -88,6 +95,7 @@ kubectl apply -f https://raw.githubusercontent.com/Barteus/kubeflow-examples/mai
 Deploy bundle
 
 ````
+juju add-model kubeflow
 juju deploy ./kubeflow-examples/data-drift/bundle.yaml
 ````
 
