@@ -1,6 +1,6 @@
 # Kubecon EU 2022
 
-Instruction how to recreate the environment
+Instruction how to recreate the environment. Valid
 
 ## Use Azure storage
 
@@ -17,6 +17,7 @@ Create Azure storage and save the Access Credentials in secret folder
 ```
 
 Example:
+
 ```
 echo -n "sa-name" > ./secret/minio-sa-name
 echo -n "sa-key1" > ./secret/minio-sa-key1
@@ -30,12 +31,16 @@ Minimum of 4 CPU and 16GB RAM is required
 
 ### Install k8s, juju, kubectl
 
+Check data-drift -> Tools setup section
+
 ### Install CKF
+
+Documentation: https://charmed-kubeflow.io/docs/install
 
 Deploy
 
 ```
-juju deploy ./bundle.yaml --trust
+juju deploy ./datacenter/bundle.yaml --trust
 ```
 
 Post deployment actions
@@ -52,11 +57,35 @@ juju config oidc-gatekeeper public-url=http://10.64.140.44.nip.io/
 Fix admin user namespace issues and apply the yamls
 
 ```
-kubectl apply -f ./datacenter/minio-jupyter-config.yaml -f admin
-kubectl apply -f ./datacenter/mlflow-jupyter-config.yaml -f admin
+kubectl apply -f ./datacenter/minio-jupyter-config.yaml -n admin
+kubectl apply -f ./datacenter/mlflow-jupyter-config.yaml -n admin
 ```
+
+### Run demo
+
+Create the notebook instance and clone the repository there. Use
+the `e2e-wine-kfp-mlflow` example and execute the notebook there. Result should
+be deployed model. From Deploy task take the yaml and copy it. You
+will need it to deploy it on the edge cloud.
+
+Endpoint is deployed in datacenter - this endpoint can be used a fallback.
 
 ## Edge
 
 Minimum of 4 CPU and 8GB RAM is required (works on RaspberryPi)
 
+### Install k8s, juju, kubectl
+
+Check data-drift -> Tools setup section
+
+### Install knative
+
+Check data-drift -> Install Knative section
+
+### Deploy bundle
+
+Bundle contains only required parts of CKF tailed to the use-case
+
+```
+juju deploy ./datacenter/bundle.yaml --trust
+```

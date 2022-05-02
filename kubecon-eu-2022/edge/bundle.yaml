@@ -1,38 +1,26 @@
 bundle: kubernetes
 applications:
-  minio:
-    charm: minio
-    channel: stable
-    revision: 57
-    resources:
-      oci-image: 338
-    scale: 1
-    constraints: arch=amd64
+  minio: { charm: minio,                   channel: latest/edge, revision: 64, series: kubernetes, scale: 1,
+           options: {
+             mode: gateway,
+             gateway-storage-service: azure,
+             access-key: include-file://../secret/minio-sa-name,
+             secret-key: include-file://../secret/minio-sa-key1
+           }
+  }
+  seldon-controller-manager: { charm: seldon-core,             channel: latest/edge, revision: 55, series: kubernetes, scale: 1 }
   mlflow-db:
     charm: cs:~charmed-osm/mariadb-k8s
     channel: stable
-    revision: 35
-    series: kubernetes
     scale: 1
-    constraints: arch=amd64
+    options:
+      database: mlflow
   mlflow-server:
     charm: mlflow-server
-    channel: stable
-    revision: 32
-    resources:
-      oci-image: 18
+    channel: latest/edge
+    revision: 37
+    series: kubernetes
     scale: 1
-    constraints: arch=amd64
-  seldon-controller-manager:
-    charm: seldon-core
-    channel: stable
-    revision: 52
-    resources:
-      oci-image: 152
-    scale: 1
-    constraints: arch=amd64
 relations:
-- - mlflow-server:db
-  - mlflow-db:mysql
-- - mlflow-server:object-storage
-  - minio:object-storage
+  - [ mlflow-server:db, mlflow-db:mysql ]
+  - [ mlflow-server, minio ]

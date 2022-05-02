@@ -32,8 +32,8 @@ applications:
                                    options: {
                                      mode: gateway,
                                      gateway-storage-service: azure,
-                                     access-key: include-file://./secret/minio-sa-name,
-                                     secret-key: include-file://./secret/minio-sa-key1
+                                     access-key: include-file://../secret/minio-sa-name,
+                                     secret-key: include-file://../secret/minio-sa-key1
                                    }
   }
   oidc-gatekeeper:               { charm: oidc-gatekeeper,         channel: latest/edge, revision: 61, series: kubernetes, scale: 1 }
