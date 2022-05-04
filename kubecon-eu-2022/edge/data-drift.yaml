@@ -55,6 +55,7 @@ apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: wine-debug-trigger
+  namespace: wine
 spec:
   broker: wine-inference-requests
   subscriber:
