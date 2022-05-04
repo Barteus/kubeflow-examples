@@ -74,6 +74,11 @@ case the edge device could not handle the load.
 The `e2e-wine-kfp-mlflow` example contains both the notebook and python "code"
 version of the pipeline including 3 ways to build pipeline steps.
 
+Data drift should also be found in the automated retraining. Data drift might
+force to move model to experimentation phase to review its performance. In
+the `data-drift` example notebook `e2e-pipeline-drift.ipynb` shows how to use
+data-drift model in training pipeline.
+
 ## Edge
 
 Minimum of 4 CPU and 8GB RAM is required (works on RaspberryPi)
@@ -136,3 +141,34 @@ will be working.
 kubectl apply -f ./edge/wine-deployment.yaml -n wine
 kubectl apply -f ./edge/wine-deployment-with-drift.yaml -n wine
 ```
+
+### Run demo
+
+1. Open wine-debug service
+```shell
+kn service list -n wine
+```
+2. Call the drift-wine-super-model (red wine sample)
+```shell
+curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
+  -H "Content-Type: application/json" \
+  -d '{"data":{"ndarray":[[10.1, 0.37, 0.34, 2.4, 0.085, 5.0, 17.0, 0.99683, 3.17, 0.65, 10.6]]}}'
+```
+3. Check if drift was detected
+
+
+HOW TO CHECK DRIFT?!
+
+
+
+4. Call the drift-wine-super-model (white wine sample)
+```shell
+curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
+  -H "Content-Type: application/json" \
+  -d '{"data":{"ndarray":[[8.1, 0.27, 0.41, 1.45, 0.033, 11.0, 63.0, 0.991, 2.99, 0.56, 12.0]]}}'
+```
+5. Check if drift was detected
+
+
+HOW TO CHECK DRIFT?!
+
