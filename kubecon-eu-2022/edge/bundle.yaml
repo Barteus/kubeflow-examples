@@ -9,19 +9,3 @@ applications:
            }
   }
   seldon-controller-manager: { charm: seldon-core,             channel: latest/edge, revision: 55, series: kubernetes, scale: 1 }
-#  TODO do we need mlflow here?!!!
-  mlflow-db:
-    charm: cs:~charmed-osm/mariadb-k8s
-    channel: stable
-    scale: 1
-    options:
-      database: mlflow
-  mlflow-server:
-    charm: mlflow-server
-    channel: latest/edge
-    revision: 37
-    series: kubernetes
-    scale: 1
-relations:
-  - [ mlflow-server:db, mlflow-db:mysql ]
-  - [ mlflow-server, minio ]
