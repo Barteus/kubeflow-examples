@@ -144,6 +144,22 @@ kubectl apply -f ./edge/wine-deployment-with-drift.yaml -n wine
 
 ### Run demo
 
+The demo of exposing the model in the edge device does not require the KNative
+installation. You only need Seldon Core and Minio object storage. Below is the
+example call to the service using the REST API. Remember to change the IP
+address.
+
+```shell
+curl  -s http://10.152.183.221:8000/api/v0.1/predictions \
+  -H "Content-Type: application/json" \
+  -d '{"data":{"ndarray":[[10.1, 0.37, 0.34, 2.4, 0.085, 5.0, 17.0, 0.99683, 3.17, 0.65, 10.6]]}}'
+```
+
+The demo of data drift detection on edge device consist of deployed model and
+data drift detection service. Model logs data asynchronously to the data drift
+detection model which creates events with drift response. For the purpose of the
+demo both types of events are sent to same broker.
+
 1. Open wine-debug service
 
 ```shell
@@ -158,9 +174,8 @@ curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
   -d '{"data":{"ndarray":[[10.1, 0.37, 0.34, 2.4, 0.085, 5.0, 17.0, 0.99683, 3.17, 0.65, 10.6]]}}'
 ```
 
-3. Check if drift was detected
-
-Go to the wine-debug event player and find 2 new rows:
+3. Check if drift was detected - go to the wine-debug event player and find 2
+   new rows:
 
 - seldon serving inference request with input to the model
 - data drift detection request with drift value equal 0 in the event body and
@@ -174,9 +189,8 @@ curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
   -d '{"data":{"ndarray":[[8.1, 0.27, 0.41, 1.45, 0.033, 11.0, 63.0, 0.991, 2.99, 0.56, 12.0]]}}'
 ```
 
-5. Check if drift was detected
-
-Go to the wine-debug event player and find 2 new rows:
+5. Check if drift was detected - go to the wine-debug event player and find 2
+   new rows:
 
 - seldon serving inference request with input to the model
 - data drift detection request with drift value equal 1 in the event body and
