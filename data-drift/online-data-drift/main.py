@@ -5,10 +5,12 @@ import mlflow
 import numpy as np
 import json
 import requests
+import os
 
 app = Flask(__name__)
 
 loaded_model = mlflow.pyfunc.load_model('./model/')
+result_broker_url = os.environ['BROKER_URL']
 
 
 class NumpyEncoder(json.JSONEncoder):
@@ -24,15 +26,11 @@ def hello_world():
     app.logger.info(input_data)
 
     drift_prediction = loaded_model.predict(input_data['data']['ndarray'])
-
     app.logger.info(drift_prediction)
 
-    data = json.dumps(drift_prediction, cls=NumpyEncoder)
-
     response = requests.post(
-        # TODO use env property
-        url='http://broker-ingress.knative-eventing.svc.cluster.local/wine/wine-inference-requests',
-        data=data,
+        url=result_broker_url,
+        data=json.dumps(drift_prediction, cls=NumpyEncoder),
         headers={
             "Content-Type": "application/json",
             "Ce-Id": str(uuid.uuid4()),
