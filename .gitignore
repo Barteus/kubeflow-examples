@@ -3,5 +3,7 @@
 venv
 venv2
 
+mlruns
+
 .idea
 __pycache__

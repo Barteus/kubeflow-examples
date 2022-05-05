@@ -1,9 +1,10 @@
 import uuid
 
-from flask import Flask, request, make_response
+from flask import Flask, request
 import mlflow
 import numpy as np
 import json
+import requests
 
 app = Flask(__name__)
 
@@ -26,13 +27,23 @@ def hello_world():
 
     app.logger.info(drift_prediction)
 
-    response = make_response(json.dumps(drift_prediction, cls=NumpyEncoder))
-    response.headers["Ce-Id"] = str(uuid.uuid4())
-    response.headers["Ce-specversion"] = "0.3"
-    response.headers["Ce-Type"] = "data.drift.detection"
-    response.headers["Drift-Result"] = drift_prediction['data']['is_drift']
+    data = json.dumps(drift_prediction, cls=NumpyEncoder)
 
-    return response
+    response = requests.post(
+        # TODO use env property
+        url='http://broker-ingress.knative-eventing.svc.cluster.local/wine/wine-inference-requests',
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "Ce-Id": str(uuid.uuid4()),
+            "Ce-Specversion": "1.0",
+            "Ce-Type": "data.drift.detection",
+            "Ce-Source": "datadrift/wine",
+            "Ce-Driftresult": str(drift_prediction['data']['is_drift'])
+        }
+    )
+
+    return response.text, response.status_code
 
 
 if __name__ == '__main__':

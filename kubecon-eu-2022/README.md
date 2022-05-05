@@ -145,30 +145,40 @@ kubectl apply -f ./edge/wine-deployment-with-drift.yaml -n wine
 ### Run demo
 
 1. Open wine-debug service
+
 ```shell
 kn service list -n wine
 ```
+
 2. Call the drift-wine-super-model (red wine sample)
+
 ```shell
 curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
   -H "Content-Type: application/json" \
   -d '{"data":{"ndarray":[[10.1, 0.37, 0.34, 2.4, 0.085, 5.0, 17.0, 0.99683, 3.17, 0.65, 10.6]]}}'
 ```
+
 3. Check if drift was detected
 
+Go to the wine-debug event player and find 2 new rows:
 
-HOW TO CHECK DRIFT?!
-
-
+- seldon serving inference request with input to the model
+- data drift detection request with drift value equal 0 in the event body and
+  distances for every feature
 
 4. Call the drift-wine-super-model (white wine sample)
+
 ```shell
 curl  -s http://10.152.183.220:8000/api/v0.1/predictions \
   -H "Content-Type: application/json" \
   -d '{"data":{"ndarray":[[8.1, 0.27, 0.41, 1.45, 0.033, 11.0, 63.0, 0.991, 2.99, 0.56, 12.0]]}}'
 ```
+
 5. Check if drift was detected
 
+Go to the wine-debug event player and find 2 new rows:
 
-HOW TO CHECK DRIFT?!
+- seldon serving inference request with input to the model
+- data drift detection request with drift value equal 1 in the event body and
+  distances for every feature
 
