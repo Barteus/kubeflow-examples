@@ -55,7 +55,7 @@ juju config dex-auth public-url=http://10.64.140.44.nip.io/
 juju config oidc-gatekeeper public-url=http://10.64.140.44.nip.io/
 ```
 
-Use the browser to log into the `http://10.64.140.44.nip.io/`
+Use the browser to log into the `http://10.64.140.44.nip.io/` using static credentials from above.
 
 Now, fix admin user namespace issues and apply the yamls
 
