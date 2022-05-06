@@ -27,13 +27,13 @@ echo -n "sa-key1" > ./secret/minio-sa-key1
 
 ## Datacenter
 
-Minimum of 4 CPU and 16GB RAM is required
+Minimum of 4 CPU and 16GB RAM is required.
 
 ### Install k8s, juju, kubectl
 
 Check data-drift -> Tools setup section
 
-### Install CKF
+### Install Chamed Kubeflow
 
 Documentation: https://charmed-kubeflow.io/docs/install
 
