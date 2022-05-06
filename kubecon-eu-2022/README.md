@@ -1,6 +1,6 @@
 # Kubecon EU 2022
 
-Instruction how to recreate the environment. Valid
+Instruction how to recreate the environment.
 
 ## Use Azure storage
 
