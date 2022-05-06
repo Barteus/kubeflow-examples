@@ -40,6 +40,7 @@ Documentation: https://charmed-kubeflow.io/docs/install
 Deploy
 
 ```shell
+juju add-model kubeflow
 juju deploy ./datacenter/bundle.yaml --trust
 ```
 
@@ -54,7 +55,9 @@ juju config dex-auth public-url=http://10.64.140.44.nip.io/
 juju config oidc-gatekeeper public-url=http://10.64.140.44.nip.io/
 ```
 
-Fix admin user namespace issues and apply the yamls
+Use the browser to log into the `http://10.64.140.44.nip.io/`
+
+Now, fix admin user namespace issues and apply the yamls
 
 ```shell
 kubectl apply -f ./datacenter/minio-jupyter-config.yaml -n admin
