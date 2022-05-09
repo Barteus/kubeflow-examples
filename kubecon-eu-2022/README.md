@@ -129,7 +129,7 @@ access-key and secret-key variable in the file `seldon-secret.yaml`.
 kubectl create secret generic seldon-init-container-secret -n wine \
   --from-literal=RCLONE_CONFIG_S3_TYPE='s3' \
   --from-literal=RCLONE_CONFIG_S3_PROVIDER='minio' \
-  --from-literal=RCLONE_CONFIG_S3_ENV_AUTH=false \ 
+  --from-literal=RCLONE_CONFIG_S3_ENV_AUTH=false \
   --from-literal=RCLONE_CONFIG_S3_ENDPOINT='http://minio.kubeflow.svc.cluster.local:9000' \
   --from-literal=RCLONE_CONFIG_S3_ACCESS_KEY_ID=<access-key> \
   --from-literal=RCLONE_CONFIG_S3_SECRET_ACCESS_KEY=<secret-key>
