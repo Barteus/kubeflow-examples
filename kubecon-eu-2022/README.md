@@ -88,10 +88,11 @@ kubectl create secret generic seldon-init-container-secret -n admin \
 
 ### Run demo
 
-Create the notebook instance and clone the repository there. Use
-the `e2e-wine-kfp-mlflow` example and execute the notebook there. Result should
-be deployed model. From Deploy task take the yaml and copy it. You
-will need it to deploy it on the edge cloud.
+Create the notebook instance - during the notebook creation go to
+the `Configuration` section and select Access to Minio, MLFlow and pipelines.
+Clone the repository there. Use the `e2e-wine-kfp-mlflow` example and execute
+the notebook there. Result should be deployed model. From Deploy task take the
+yaml and copy it. You will need it to deploy it on the edge cloud.
 
 Endpoint is deployed in datacenter - this endpoint can be used a fallback in
 case the edge device could not handle the load.
