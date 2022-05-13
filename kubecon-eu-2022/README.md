@@ -25,6 +25,8 @@ echo -n "sa-key1" > ./secret/minio-sa-key1
 
 **Do not** add new line character at the end of file!!!
 
+Add the `mlflow` container to Azure. You can do it in Azure console.
+
 ## Datacenter
 
 Minimum of 4 CPU and 16GB RAM is required.
