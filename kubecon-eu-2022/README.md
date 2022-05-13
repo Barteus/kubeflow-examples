@@ -37,6 +37,13 @@ Check data-drift -> Tools setup section
 
 Documentation: https://charmed-kubeflow.io/docs/install
 
+For deployment to work you need to have a default storage class selected in your
+k8s cluster. Use script below to select the storage class.
+
+```shell
+kubectl patch storageclass <storageclass_name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
 Deploy
 
 ```shell
@@ -55,7 +62,8 @@ juju config dex-auth public-url=http://10.64.140.44.nip.io/
 juju config oidc-gatekeeper public-url=http://10.64.140.44.nip.io/
 ```
 
-Use the browser to log into the `http://10.64.140.44.nip.io/` using static credentials from above.
+Use the browser to log into the `http://10.64.140.44.nip.io/` using static
+credentials from above.
 
 Now, fix admin user namespace issues and apply the yamls
 
