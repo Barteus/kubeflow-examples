@@ -50,4 +50,4 @@ EOF
 kubectl get secret mlflow-server-seldon-init-container-s3-credentials --namespace=kubeflow -o yaml \
   | sed "s/namespace: kubeflow/namespace: $USER_NAMESPACE/" \
   | sed 's/name: mlflow-server-seldon-init-container-s3-credentials/name: seldon-init-container-secret/g' \
-  | kubectl apply -n $USER_NAMESPACE-f -
+  | kubectl apply -n $USER_NAMESPACE -f -
