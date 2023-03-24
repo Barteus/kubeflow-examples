@@ -2,7 +2,7 @@
 
 ## Setup environemnt
 
-Create t2.large instance with public IP. 2GB RAM should be OK (TODO test it!)
+Create t2.medium instance with public IP. 
 
 ## Prepare environment
 
@@ -61,7 +61,7 @@ juju deploy ./bundle.yaml
 
 Result exposed istio-gateway-workload
 ```shell
-ubuntu@ip-172-31-2-238:~$ k get svc -n kubeflow
+$ microk8s.kubectl get svc -n kubeflow
 NAME                                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                 AGE
 modeloperator                        ClusterIP   10.152.183.248   <none>        17071/TCP                               72m
 istio-gateway                        ClusterIP   10.152.183.119   <none>        65535/TCP                               29m
@@ -80,7 +80,7 @@ seldon-webhook-service               ClusterIP   10.152.183.223   <none>        
 Deploy Seldon Model
 
 ```shell
-microk8s kubectl apply -f - << END
+microk8s.kubectl apply -f - << END
 apiVersion: machinelearning.seldon.io/v1
 kind: SeldonDeployment
 metadata:
@@ -108,7 +108,7 @@ END
 Expose using Istio Virtual Service
 
 ```shell
-microk8s kubectl apply -f - << END
+microk8s.kubectl apply -f - << END
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -135,9 +135,19 @@ END
 
 ## Call model
 
+Build the URL for the exposed model:
+1. Get public IP for the EC2 instance
+2. Get the port on which Service is exposed 
 ```shell
-$ curl  -s http://34.255.197.32:31788/model/iris/api/v0.1/predictions  \
+ubuntu@ip-172-31-2-238:~$ microk8s.kubectl get svc istio-ingressgateway-workload -n kubeflow
+NAME                                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                 AGE
+istio-ingressgateway-workload        NodePort    10.152.183.183   <none>        80:31788/TCP,443:32475/TCP              26m
+```
+
+```shell
+$ curl  -s http://34.243.192.192:30380/model/iris/api/v0.1/predictions  \
   -H "Content-Type: application/json"  \
-   -d '{"data":{"ndarray":[[5.964,4.006,2.081,1.031]]}}'
+  -d '{"data":{"ndarray":[[5.964,4.006,2.081,1.031]]}}'
 {"data":{"names":["t:0","t:1","t:2"],"ndarray":[[0.9548873249364059,0.04505474761562512,5.7927447968953825e-05]]},"meta":{"requestPath":{"sklearn-iris-classifier":"seldonio/sklearn-iris:0.3"}}}
 ```
+2022-09-28-Xperi-Managed-Kubeflow-OP-329593
