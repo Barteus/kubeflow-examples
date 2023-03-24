@@ -150,4 +150,3 @@ $ curl  -s http://34.243.192.192:30380/model/iris/api/v0.1/predictions  \
   -d '{"data":{"ndarray":[[5.964,4.006,2.081,1.031]]}}'
 {"data":{"names":["t:0","t:1","t:2"],"ndarray":[[0.9548873249364059,0.04505474761562512,5.7927447968953825e-05]]},"meta":{"requestPath":{"sklearn-iris-classifier":"seldonio/sklearn-iris:0.3"}}}
 ```
-2022-09-28-Xperi-Managed-Kubeflow-OP-329593
